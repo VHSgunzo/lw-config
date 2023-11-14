@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SELFPWD="$(realpath "$(dirname "$0")")"
+
+find "$SELFPWD" -name '*.slint'|xargs slint-tr-extractor -d lw-config -o lw-config.pot
+
+for po in locale/*/LC_MESSAGES
+    do
+        msgmerge "$po/lw-config.po" lw-config.pot -o "$po/lw-config.po"
+        msgfmt "$po/lw-config.po" -o "$po/lw-config.mo"
+done

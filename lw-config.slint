@@ -1,0 +1,690 @@
+import { 
+    Button, TabWidget, StandardButton,
+    GridBox, ComboBox, TextEdit, Switch,
+    LineEdit,
+    VerticalBox, ListView, HorizontalBox
+} from "std-widgets.slint";
+
+component Pane inherits Rectangle {
+    TouchArea {}
+}
+export component AppPane inherits Pane {
+    VerticalBox {
+        // ListView {
+        //     viewport_width: self.width;
+        // }
+    TabWidget {
+        Tab {
+            title: @tr("Wine");
+            GridBox {
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Wine version:");
+                        max-width: self.min-width;
+                        winever_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects the Wine/Proton version");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { winever_info.show() }
+                        }
+                    }
+                    wine_version_cb := ComboBox {
+                        width: 130px;
+                        height: self.preferred-height;
+                        model: ["dfdf", "dfdffffffff"];
+                        current-value: "dfdffffffff";
+                    }
+                }
+            }
+        }
+    }
+        HorizontalBox {
+            alignment: space_between;
+            back_btn := Button {
+                text: "🔙 Back";
+                height: self.min_height;
+            }
+
+        }
+    }
+    callback back <=> back_btn.clicked;
+}
+
+export component LuxWineSettings inherits Dialog {
+    title: @tr("Lux Wine settings {}", exe_full_name);
+    icon: @image-url("lw-config.png");
+    preferred-width: root.settwidth;
+    preferred-height: root.settheight;
+
+    TabWidget {
+        Tab {
+            title: @tr("Wine");
+            GridBox {
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Wine version:");
+                        max-width: self.min-width;
+                        winever_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects the Wine/Proton version");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { winever_info.show() }
+                        }
+                    }
+                    wine_version_cb := ComboBox {
+                        width: 180px; height: 30px;
+                        model: root.wine_list;
+                        current-value: root.wine_version;
+                        selected(string) => { root.wine_version = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Windows version:");
+                        max-width: self.min-width;
+                        winver_info := PopupWindow {
+                            Rectangle { 
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects the Windows version in the Wine prefix");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { winver_info.show() }
+                        }
+                    }
+                    win_version_cb := ComboBox {
+                        width: 180px; height: 30px;
+                        model: root.win_version_list;
+                        current-value: root.win_version;
+                        selected(string) => { root.win_version = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Prefix architecture:");
+                        max-width: self.min-width;
+                        pfx_arch_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects the Wine prefix architecture");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { pfx_arch_info.show() }
+                        }
+                    }
+                    pfx_arch_cb := ComboBox {
+                        width: 180px; height: 30px;
+                        model: root.pfx_arch_list;
+                        current-value: root.pfx_arch;
+                        selected(string) => { root.pfx_arch = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Wine prefix:");
+                        max-width: self.min-width;
+                        pfx_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects the Wine prefix from \n'$LW_DIR/wprefixes'");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { pfx_info.show() }
+                        }
+                    }
+                    wine_pfx_cb := ComboBox {
+                        width: 180px; height: 30px;
+                        model: root.wine_pfx_list;
+                        current-value: root.wine_pfx;
+                        selected(string) => { root.wine_pfx = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Wine theme:");
+                        max-width: self.min-width;
+                        wine_theme_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects theme for windows in the Wine prefix");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { wine_theme_info.show() }
+                        }
+                    }
+                    wine_theme_cb := ComboBox {
+                        width: 180px; height: 30px;
+                        model: root.wine_theme_list;
+                        current-value: root.wine_theme;
+                        selected(string) => { root.wine_theme = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Wine DLL overrides:");
+                        max-width: self.min-width;
+                        winedlloverrides_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("WINEDLLOVERRIDES variable lets you temporarily specify DLL overrides");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { winedlloverrides_info.show() }
+                        }
+                    }
+                    winedlloverrides_le := LineEdit {
+                        width: 180px; height: 30px;
+                        placeholder-text: "d3dx10=b,n;d3dx9=";
+                        text: root.winedlloverrides;
+                        edited(string) => { root.winedlloverrides = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Wine MONO overrides:");
+                        max-width: self.min-width;
+                        winemonoverrides_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("WINE_MONO_OVERRIDES variable lets you temporarily specify MONO overrides");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { winemonoverrides_info.show() }
+                        }
+                    }
+                    winemonoverrides_le := LineEdit {
+                        width: 180px; height: 30px;
+                        placeholder-text: "Microsoft.Xna.*=n";
+                        text: root.winemonoverrides;
+                        edited(string) => { root.winemonoverrides = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("D3D mode:");
+                        max-width: self.min-width;
+                        d3dmode_info := PopupWindow {
+                            Rectangle {
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Selects the mode of the D3D API.\nVulkan:\n    DXVK - dx9-11\n    NVAPI - Nvidia API\n    VKD3D - dx12\nOpenGL:\n    WineD3D - Wine builtin DLLs");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { d3dmode_info.show() }
+                        }
+                    }
+                    d3dmode_cb := ComboBox {
+                        width: 180px; height: 30px;
+                        model: root.d3dmode_list;
+                        current-value: root.d3dmode;
+                        selected(string) => { root.d3dmode = string }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("Disable NVAPI:");
+                        max-width: self.min-width;
+                        disnvapi_info := PopupWindow {
+                            Rectangle { 
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Disables NVAPI when using Vulkan API on NVIDIA video cards");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { disnvapi_info.show() }
+                        }
+                    }
+                    disable_nvapi_sw := Switch {
+                        width: self.preferred-width;
+                        height: self.preferred-height;
+                        checked: root.disable_nvapi;
+                        callback on;
+                        callback off;
+                        toggled => {
+                            root.disable_nvapi = self.checked;
+                            if (self.checked) { self.on() } 
+                            else { self.off() }
+                        }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("DXVK with Wine DXGI:");
+                        max-width: self.min-width;
+                        d3d_extras_info := PopupWindow {
+                            Rectangle { 
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Uses dxgi.dll from the builtin Wine DLLs for DXVK");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { d3d_extras_info.show() }
+                        }
+                    }
+                    wine_dxgi_sw := Switch {
+                        width: self.preferred-width;
+                        height: self.preferred-height;
+                        checked: root.wine_dxgi;
+                        callback on;
+                        callback off;
+                        toggled => {
+                            root.wine_dxgi = self.checked;
+                            if (self.checked) { self.on() } 
+                            else { self.off() }
+                        }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("D3D extras:");
+                        max-width: self.min-width;
+                        winedxgi_info := PopupWindow {
+                            Rectangle { 
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Additional D3D DirectX DLLs");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { winedxgi_info.show() }
+                        }
+                    }
+                    d3d_extras_sw := Switch {
+                        width: self.preferred-width;
+                        height: self.preferred-height;
+                        checked: root.d3d_extras;
+                        callback on;
+                        callback off;
+                        toggled => {
+                            root.d3d_extras = self.checked;
+                            if (self.checked) { self.on() } 
+                            else { self.off() }
+                        }
+                    }
+                }
+                Row {
+                    Text {
+                        col: 0;
+                        text: @tr("dgVoodoo2:");
+                        max-width: self.min-width;
+                        dgvoodoo2_info := PopupWindow {
+                            Rectangle { 
+                                height:100%; width: 100%;
+                                background: root.background; 
+                            }
+                            y: 20px; height: 50px; width: 300px;
+                            Text {
+                                height: 100%;
+                                width: 100%;
+                                text: @tr("Glide/DirectX implementation on D3D11/12");
+                                wrap: word-wrap;
+                                overflow: TextOverflow.elide;
+                                vertical-alignment: TextVerticalAlignment.center;
+                            }
+                        }
+                        TouchArea {
+                            height:100%; width: 100%;
+                            mouse-cursor: help;
+                            clicked => { dgvoodoo2_info.show() }
+                        }
+                    }
+                    dgvoodoo2_sw := Switch {
+                        width: self.preferred-width;
+                        height: self.preferred-height;
+                        checked: root.dgvoodoo2;
+                        callback on;
+                        callback off;
+                        toggled => {
+                            root.dgvoodoo2 = self.checked;
+                            if (self.checked) { self.on() } 
+                            else { self.off() }
+                        }
+                    }
+                }
+
+
+
+            }
+        }
+
+        Tab {
+            title: @tr("System");
+            GridBox {
+                Row {
+
+                }
+            }
+            animated := Rectangle {
+                width: 100%; height: 100%;
+                y: root.height;
+                states [
+                    visible when (root.pane_visible) : {
+                        y: 0;
+                        in  { animate y { duration: 200ms; easing: ease; } }
+                        out  { animate y { duration: 200ms; easing: ease; } }
+                    }
+                ]
+        
+                if (animated.y < root.height): AppPane {
+                    background: root.background;
+                    back => { root.pane_visible = false; }
+                }
+            }
+        }
+
+        Tab {
+            title: @tr("VkBasalt Effects");
+            GridBox {
+                Row {
+                    
+                }
+            }
+        }
+
+        Tab {
+            title: @tr("MangoHud config");
+            GridBox {
+                Row {
+                    
+                }
+            }
+        }
+
+        Tab {
+            title: @tr("Custom Environment");
+            custom_env_te := TextEdit {
+                font-size: 14px;
+                width: parent.width;
+                height: parent.height;
+                text: root.custom_env;
+                edited(string) => { root.custom_env = string }
+            }
+        }
+
+        Tab {
+            title: @tr("Winetricks Log");
+            winetricks_log_te := TextEdit {
+                font-size: 14px;
+                width: parent.width;
+                height: parent.height;
+                text: root.winetricks_log;
+                edited(string) => { root.winetricks_log = string }
+            }
+        }
+
+        Tab {
+            title: @tr("Tools");
+            GridBox {
+                Row {
+                    init := Button {
+                        col: 0;
+                        text: @tr("Forced init");
+                        enabled: root.tools_tab_btns_enabled;
+                    }
+                }
+            }
+        }
+    }
+
+    pane := Button {
+        text: @tr("Pane");
+        dialog-button-role: action;
+        callback btn_clicked;
+        clicked => {
+            self.btn_clicked();
+            if (root.pane_visible) {
+                root.pane_visible = false;
+            } else {
+                root.pane_visible = true;
+            }
+        }
+    }
+    callback pane_clicked <=> pane.btn_clicked;
+
+    ok := Button {
+        text: @tr("OK");
+        property <StandardButtonKind> kind: StandardButtonKind.ok;
+    }
+
+    reset := Button {
+        text: @tr("RESET");
+        dialog-button-role: action;
+        visible: root.reset_btn_visible;
+        callback btn_clicked;
+        clicked => {
+            self.btn_clicked();
+            ok.clicked();
+        }
+    }
+    callback reset_clicked <=> reset.btn_clicked;
+    in-out property <bool> reset_btn_visible: true;
+
+    run := Button {
+        text: @tr("RUN");
+        dialog-button-role: action;
+        visible: root.run_btn_visible;
+        callback btn_clicked;
+        clicked => {
+            self.btn_clicked();
+            ok.clicked();
+        }
+    }
+    callback run_clicked <=> run.btn_clicked;
+    in-out property <bool> run_btn_visible;
+
+    in-out property <string> exe_full_name;
+    in-out property <bool> pane_visible;
+    in-out property <bool> tools_tab_btns_enabled: true;
+
+    in-out property <length> settheight: 0px;
+    in-out property <length> settwidth: 0px;
+
+    in-out property <[string]> wine_list: ["System"];
+    in-out property <string> wine_version: "System";
+    callback wine_version_cb <=> wine_version_cb.selected;
+
+    in-out property <[string]> win_version_list: ["10", "8" , "7", "xp"];
+    in-out property <string> win_version: 10;
+    callback win_version_cb <=> win_version_cb.selected;
+
+    in-out property <[string]> pfx_arch_list: ["win64", "win32"];
+    in-out property <string> pfx_arch: "win64";
+    callback pfx_arch_cb <=> pfx_arch_cb.selected;
+
+    in-out property <[string]> wine_pfx_list: ["defprefix", "defprefix_dotnet"];
+    in-out property <string> wine_pfx: "defprefix";
+    callback wine_pfx_cb <=> wine_pfx_cb.selected;
+
+    in-out property <[string]> wine_theme_list: ["Breeze Dark", "Win10 Black", "Wine Dark", "DEFAULT"];
+    in-out property <string> wine_theme: "Breeze Dark";
+    callback wine_theme_cb <=> wine_theme_cb.selected;
+    
+    in-out property <string> winedlloverrides: "steam_api,steam_api64,steamclient,steamclient64=n;lsteamclient,winemenubuilder.exe=";
+    callback winedlloverrides_le <=> winedlloverrides_le.edited;
+
+    in-out property <string> winemonoverrides: "Microsoft.Xna.Framework.*,Gac=n";
+    callback winemonoverrides_le <=> winemonoverrides_le.edited;
+
+    in-out property <[string]> d3dmode_list: ["DXVK+NVAPI+VKD3D", "DXVK+NVAPI", "VKD3D", "WineD3D"];
+    in-out property <string> d3dmode: "DXVK+NVAPI+VKD3D";
+    callback d3dmode_cb <=> d3dmode_cb.selected;
+
+    in-out property <bool> disable_nvapi;
+    callback disable_nvapi_on <=> disable_nvapi_sw.on;
+    callback disable_nvapi_off <=> disable_nvapi_sw.off;
+
+    in-out property <bool> wine_dxgi;
+    callback wine_dxgi_on <=> wine_dxgi_sw.on;
+    callback wine_dxgi_off <=> wine_dxgi_sw.off;
+
+    in-out property <bool> d3d_extras;
+    callback d3d_extras_on <=> d3d_extras_sw.on;
+    callback d3d_extras_off <=> d3d_extras_sw.off;
+
+    in-out property <bool> dgvoodoo2;
+    callback dgvoodoo2_on <=> dgvoodoo2_sw.on;
+    callback dgvoodoo2_off <=> dgvoodoo2_sw.off;
+
+    in-out property <string> custom_env;
+    callback custom_env_te <=> custom_env_te.edited;
+
+    in-out property <string> winetricks_log;
+    callback winetricks_log_te <=> winetricks_log_te.edited;
+
+
+    callback init_clicked <=> init.clicked;
+}

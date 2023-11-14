@@ -1,0 +1,28 @@
+[package]
+name = "lw-config"
+version = "0.0.1"
+authors = ["VHSgunzo"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/VHSgunzo/lw-config"
+description = "Lux Wine settings"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+slint = { version = "1.3.0", features=["gettext"] }
+execute = "0.2.12"
+
+[build-dependencies]
+slint-build = "1.3.0"
+
+[profile.release]
+lto = true
+panic = "abort"
+opt-level = "z"
+strip = "symbols"
+codegen-units = 1
+
+[profile.dev]
+panic = "abort"
+opt-level = 0

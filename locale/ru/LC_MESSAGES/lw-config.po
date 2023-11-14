@@ -1,0 +1,174 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2023-11-10 17:08+0000\n"
+"PO-Revision-Date: 2023-11-10 20:10+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: lw-config.slint:9
+msgctxt "LuxWineSettings"
+msgid "Lux Wine settings"
+msgstr "Настройки Lux Wine"
+
+#: lw-config.slint:16
+msgctxt "LuxWineSettings"
+msgid "Wine"
+msgstr ""
+
+#: lw-config.slint:21
+msgctxt "LuxWineSettings"
+msgid "Wine version:"
+msgstr "Wine версия"
+
+#: lw-config.slint:32
+msgctxt "LuxWineSettings"
+msgid "Selects the Wine/Proton version"
+msgstr "Выбирает версию Wine/Proton"
+
+#: lw-config.slint:55
+msgctxt "LuxWineSettings"
+msgid "Windows version:"
+msgstr ""
+
+#: lw-config.slint:66
+msgctxt "LuxWineSettings"
+msgid "Selects the Windows version in the Wine prefix"
+msgstr ""
+
+#: lw-config.slint:89
+msgctxt "LuxWineSettings"
+msgid "Prefix architecture:"
+msgstr ""
+
+#: lw-config.slint:100
+msgctxt "LuxWineSettings"
+msgid "Selects the Wine prefix architecture"
+msgstr ""
+
+#: lw-config.slint:123
+msgctxt "LuxWineSettings"
+msgid "Wine prefix:"
+msgstr ""
+
+#: lw-config.slint:134
+msgctxt "LuxWineSettings"
+msgid ""
+"Selects the Wine prefix from \n"
+"'$LW_DIR/wprefixes'"
+msgstr ""
+
+#: lw-config.slint:157
+msgctxt "LuxWineSettings"
+msgid "Wine theme:"
+msgstr ""
+
+#: lw-config.slint:168
+msgctxt "LuxWineSettings"
+msgid "Selects theme for windows in the Wine prefix"
+msgstr ""
+
+#: lw-config.slint:191
+msgctxt "LuxWineSettings"
+msgid "Wine DLL overrides:"
+msgstr ""
+
+#: lw-config.slint:202
+msgctxt "LuxWineSettings"
+msgid "WINEDLLOVERRIDES variable lets you temporarily specify DLL overrides"
+msgstr ""
+
+#: lw-config.slint:225
+msgctxt "LuxWineSettings"
+msgid "Wine MONO overrides:"
+msgstr ""
+
+#: lw-config.slint:236
+msgctxt "LuxWineSettings"
+msgid ""
+"WINE_MONO_OVERRIDES variable lets you temporarily specify MONO overrides"
+msgstr ""
+
+#: lw-config.slint:259
+msgctxt "LuxWineSettings"
+msgid "D3D mode:"
+msgstr ""
+
+#: lw-config.slint:270
+msgctxt "LuxWineSettings"
+msgid ""
+"Selects the mode of the D3D API.\n"
+"Vulkan:\n"
+"    DXVK - dx9-11\n"
+"    NVAPI - Nvidia API\n"
+"    VKD3D - dx12\n"
+"OpenGL:\n"
+"    WineD3D - Wine builtin DLLs"
+msgstr ""
+
+#: lw-config.slint:293
+msgctxt "LuxWineSettings"
+msgid "Disable NVAPI"
+msgstr ""
+
+#: lw-config.slint:304
+msgctxt "LuxWineSettings"
+msgid "Disables NVAPI when using Vulkan API on NVIDIA video cards"
+msgstr ""
+
+#: lw-config.slint:326
+msgctxt "LuxWineSettings"
+msgid "DXVK with Wine DXGI"
+msgstr ""
+
+#: lw-config.slint:337
+msgctxt "LuxWineSettings"
+msgid "Uses dxgi.dll from the builtin Wine DLLs for DXVK"
+msgstr ""
+
+#: lw-config.slint:360
+msgctxt "LuxWineSettings"
+msgid "System"
+msgstr ""
+
+#: lw-config.slint:369
+msgctxt "LuxWineSettings"
+msgid "VkBasalt Effects"
+msgstr ""
+
+#: lw-config.slint:378
+msgctxt "LuxWineSettings"
+msgid "MangoHud config"
+msgstr ""
+
+#: lw-config.slint:387
+msgctxt "LuxWineSettings"
+msgid "Custom Environment"
+msgstr ""
+
+#: lw-config.slint:398
+msgctxt "LuxWineSettings"
+msgid "Tools"
+msgstr ""
+
+#: lw-config.slint:408
+msgctxt "LuxWineSettings"
+msgid "OK"
+msgstr "ОК"
+
+#: lw-config.slint:413
+msgctxt "LuxWineSettings"
+msgid "RESET"
+msgstr "РЕСЕТ"
+
+#: lw-config.slint:424
+msgctxt "LuxWineSettings"
+msgid "RUN"
+msgstr "ЗАПУСТИТЬ"
